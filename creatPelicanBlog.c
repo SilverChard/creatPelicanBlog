@@ -80,13 +80,19 @@ void creatBlog(int blog_class,int blog_num)
     getchar();
     gets(title);
     system("cls");
-    for(i=0;Tags[i-1][0]!='0'||Tags[i-1][1]!='\0';i++)
+    if(blog_class==2)
     {
-        system("cls");
-        printf("请输入该文章的第%d条Tag(输入'0'表示输入结束):\n",i+1);
-        scanf("%s",Tags[i]);
-        system("cls");
+        strcpy(Tags[0],"motion");
+        strcpy(Tags[1],"0");
     }
+    else
+        for(i=0;Tags[i-1][0]!='0'||Tags[i-1][1]!='\0';i++)
+        {
+            system("cls");
+            printf("请输入该文章的第%d条Tag(输入'0'表示输入结束):\n",i+1);
+            scanf("%s",Tags[i]);
+            system("cls");
+        }
 
     fp=fopen(name,"w+");//开始创建文件
     if(fp==NULL)
