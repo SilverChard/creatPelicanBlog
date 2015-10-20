@@ -86,14 +86,20 @@ void creatBlog(int blog_class,int blog_num)
         strcpy(Tags[1],"0");
     }
     else
-        for(i=0;Tags[i-1][0]!='0'||Tags[i-1][1]!='\0';i++)
-        {
-            system("cls");
-            printf("请输入该文章的第%d条Tag(输入'0'表示输入结束):\n",i+1);
-            scanf("%s",Tags[i]);
-            system("cls");
-        }
+    {
 
+        printf("请输入该文章的第1条Tag(输入'0'表示输入结束):\n");
+        scanf("%s",Tags[0]);
+        system("cls");
+        if(strcmp(Tags[0],"0"))
+            for(i=1; strcmp(Tags[i-1],"0"); i++)
+            {
+
+                printf("请输入该文章的第%d条Tag(输入'0'表示输入结束):\n",i+1);
+                scanf("%s",Tags[i]);
+                system("cls");
+            }
+    }
     fp=fopen(name,"w+");//开始创建文件
     if(fp==NULL)
     {
@@ -105,8 +111,7 @@ void creatBlog(int blog_class,int blog_num)
     fprintf(fp,"Date:%4d-%02d-%02d %d:%02d:%02d\n",t.wYear,t.wMonth,t.wDay,t.wHour,t.wHour,t.wSecond);
     fprintf(fp,"Category:%s\n",category);
     fprintf(fp,"Tags:");
-    for(i=0; strcmp(Tags[i],"0"); i++)//循环写入tags
-        fprintf(fp,"%s,",Tags[i]);
+    for(i=0;strcmp(Tags[i-1],"0");i++)
     fprintf(fp,"\n");
     fprintf(fp,"status: draft\n");
     fprintf(fp,"\n此处开始写正文，完成后请不要忘记将status:draft 删除。");
